@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <nav-component/>
+    <b-container>
+      <b-img center rounded="circle" :src="require('./assets/logo-girl.jpg')" fluid alt="Sorry, mama..." />
+    </b-container>
     <form-component/>
   </div>
 </template>

@@ -1,5 +1,9 @@
 <template>
   <b-container class="wrapper">
+    <div class="preview">
+      <h1>Lets embarrass yourself</h1>
+    </div>
+    <hr>
     <b-form @submit="onSubmit" @reset="onReset">
       <b-form-group id="mainFormGroup"
                     label="Anime title:"
@@ -12,8 +16,9 @@
                       placeholder="Enter the title...">
         </b-form-input>
       </b-form-group>
-      <b-button type="submit" variant="primary" class="left">Seek your destiny</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <div class="buttons">
+        <b-button type="submit" variant="primary" class="left">Seek your destiny</b-button>
+      </div>
     </b-form>
   </b-container>
 </template>
@@ -41,17 +46,6 @@ export default {
         .catch(error => {
           console.log(error)
         })
-    },
-    onReset (evt) {
-      evt.preventDefault()
-      /* Reset our form values */
-      this.form.email = ''
-      this.form.name = ''
-      this.form.food = null
-      this.form.checked = []
-      /* Trick to reset/clear native browser form validation state */
-      this.show = false
-      this.$nextTick(() => { this.show = true })
     }
   }
 }
@@ -61,11 +55,35 @@ export default {
 <style scoped lang="scss">
   .wrapper{
     border: 1px solid #c3c3c3;
-    padding: 10px;
+    padding: 20px;
+    padding-bottom: 60px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
 
   .left{
     margin-right: 10px
+  }
+
+  .preview{
+    text-align: center;
+  }
+
+  hr{
+    width: 50%;
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  }
+
+  #mainFormGroup{
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
+
+  .buttons{
+    width: 80%;
+    margin: 0 auto;
   }
 </style>

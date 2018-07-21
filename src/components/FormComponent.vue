@@ -4,7 +4,7 @@
       <h1>Lets embarrass yourself</h1>
     </div>
     <hr>
-    <b-form @submit="onSubmit" @reset="onReset">
+    <b-form @submit="onSubmit">
       <b-form-group id="mainFormGroup"
                     label="Anime title:"
                     label-for="title"
@@ -41,12 +41,12 @@ export default {
       // alert(JSON.stringify(this.form));
       axios.get('https://api.jikan.moe/search/anime' + this.form.title)
         .then(respone => {
-          console.log(respone)
+          this.$emit('responseToParent', respone.data)
         })
         .catch(error => {
           console.log(error)
         })
-    }
+    },
   }
 }
 </script>
@@ -57,6 +57,7 @@ export default {
     border: 1px solid #c3c3c3;
     padding: 20px;
     padding-bottom: 60px;
+    margin-bottom: 40px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
 

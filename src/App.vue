@@ -1,13 +1,31 @@
 <template>
   <div id="app">
     <nav-component/>
+    
     <b-container>
       <b-img center rounded="circle" :src="require('./assets/logo-girl.jpg')" fluid alt="Sorry, mama..." />
     </b-container>
-    <form-component @responseToParent="onResponseRecieved"/>
-    <b-container v-if="checkResponseEmptyness" fluid>
-      <pick-component v-for="title in titles.result" :key="title.mal_id" :title="title"></pick-component>
+
+    <hr>
+
+    <b-container v-if="timeWasted">
+      <time-wasted-component :timeWasted="timeWasted"></time-wasted-component>
+      <div class="button-container">
+        <b-button variant="success" @click="reset">Check another title...</b-button>
+      </div>
     </b-container>
+
+    <div v-if="!timeWasted">
+      <form-component @responseToParent="onResponseRecieved" v-if="!responseEmptyness"/>
+
+      <b-container v-if="responseEmptyness">
+        <h1>Pick the correct one...</h1>
+        <b-row>
+          <pick-component v-for="title in titles" :key="title.mal_id" :title="title" @passTimeWasted="receiveTimeWasted"></pick-component>
+        </b-row>
+      </b-container>
+    </div>
+
   </div>
 </template>
 
@@ -15,6 +33,7 @@
 import FormComponent from './components/FormComponent.vue'
 import NavComponent from './components/NavComponent.vue'
 import PickComponent from './components/PickComponent.vue'
+import TimeWastedComponent from './components/TimeWastedComponent'
 
 export default {
   name: 'app',
@@ -22,6 +41,7 @@ export default {
   data() {
     return{
       titles: {},
+      timeWasted: 0,
     }
   },
 
@@ -29,18 +49,29 @@ export default {
     FormComponent,
     NavComponent,
     PickComponent,
+    TimeWastedComponent,
   },
 
   methods: {
     onResponseRecieved (response){
       this.titles = response;
+    },
+
+    receiveTimeWasted (timeWasted){
+      console.log(timeWasted)
+      this.timeWasted = timeWasted
+    },
+
+    reset(){
+      this.titles = {}
+      this.timeWasted = 0
     }
   },
 
   computed: {
-    checkResponseEmptyness(){
+    responseEmptyness(){
       return Object.keys(this.titles).length
-    }
+    },
   }
 }
 </script>
@@ -48,5 +79,18 @@ export default {
 <style lang="scss">
   #app{
     margin-bottom: 40px;
+  }
+
+  hr{
+    width: 50%;
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  }
+
+  .button-container{
+    text-align: center;
+    margin-top: 10px;
   }
 </style>

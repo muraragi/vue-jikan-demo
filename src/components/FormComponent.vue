@@ -1,7 +1,7 @@
 <template>
   <b-container class="wrapper">
     <div class="preview">
-      <h1>Lets embarrass yourself</h1>
+      <h1>Lets embarrass yourselfs</h1>
     </div>
     <hr>
     <b-form @submit="onSubmit">
@@ -39,9 +39,10 @@ export default {
     onSubmit (evt) {
       evt.preventDefault()
       // alert(JSON.stringify(this.form));
-      axios.get('https://api.jikan.moe/search/anime' + this.form.title)
-        .then(respone => {
-          this.$emit('responseToParent', respone.data)
+      axios.get('https://api.jikan.moe/search/anime/' + this.form.title)
+        .then(response => {
+          console.log(response.data)
+          this.$emit('responseToParent', response.data.result.slice(0, 9))
         })
         .catch(error => {
           console.log(error)

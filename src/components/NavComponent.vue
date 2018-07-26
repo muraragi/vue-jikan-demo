@@ -8,8 +8,9 @@
         <b-collapse is-nav id="nav_collapse">
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
-                <a href="">
-                    <i class="fab fa-github fa-2x"></i>
+                <a href="https://github.com/muraragi/vue-jikan-demo">
+                    <i class="fab fa-github fa-2x">
+                    </i>
                 </a>
             </b-navbar-nav>
 

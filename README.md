@@ -1,5 +1,8 @@
 # jikan_api_project
 
+## Visit at
+https://muraragi.github.io/vue-jikan-demo/
+
 ## Project setup
 ```
 npm install

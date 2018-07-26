@@ -21,9 +21,12 @@
             <b-form-input id="title"
                           type="text"
                           v-model="form.title"
-                          required
+                          :state="!$v.form.title.$invalid"
                           placeholder="Enter the title...">
             </b-form-input>
+            <b-form-invalid-feedback id="titleLiveFeedback">
+              This is a required field and must be at least 3 characters
+           </b-form-invalid-feedback>  
           </b-form-group>
           <div class="buttons">
             <b-button type="submit" variant="primary" class="left">Seek your destiny</b-button>
@@ -38,6 +41,8 @@
 <script>
 import axios from 'axios'
 import Spinner from './Spinner.vue'
+import { validationMixin } from "vuelidate"
+import { minLength, required } from "vuelidate/lib/validators"
 
 export default {
   name: 'FormComponent',
@@ -49,6 +54,20 @@ export default {
       loading: false
     }
   },
+
+  mixins: [
+    validationMixin
+  ],
+
+  validations: {
+    form: {
+      title: {
+        required,
+        minLength: minLength(3)   
+      }
+    }
+  },
+
   components: {
     Spinner
   },

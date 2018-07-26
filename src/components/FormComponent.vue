@@ -1,30 +1,43 @@
 <template>
-  <b-container class="wrapper">
-    <div class="preview">
-      <h1>Lets embarrass yourselfs</h1>
+  <div>
+
+    <div v-if="loading">
+        <spinner></spinner>
     </div>
-    <hr>
-    <b-form @submit="onSubmit">
-      <b-form-group id="mainFormGroup"
-                    label="Anime title:"
-                    label-for="title"
-                    description="We'll never share your precious secrets with your parents.">
-        <b-form-input id="title"
-                      type="text"
-                      v-model="form.title"
-                      required
-                      placeholder="Enter the title...">
-        </b-form-input>
-      </b-form-group>
-      <div class="buttons">
-        <b-button type="submit" variant="primary" class="left">Seek your destiny</b-button>
+
+    <b-container class="wrapper" v-else>
+      <div>
+        <div class="preview">
+          <h1>Lets embarrass yourselfs</h1>
+        </div>
+
+        <hr>
+
+        <b-form @submit="onSubmit">
+          <b-form-group id="mainFormGroup"
+                        label="Anime title:"
+                        label-for="title"
+                        description="We'll never share your precious secrets with your parents.">
+            <b-form-input id="title"
+                          type="text"
+                          v-model="form.title"
+                          required
+                          placeholder="Enter the title...">
+            </b-form-input>
+          </b-form-group>
+          <div class="buttons">
+            <b-button type="submit" variant="primary" class="left">Seek your destiny</b-button>
+          </div>
+        </b-form>
       </div>
-    </b-form>
-  </b-container>
+    </b-container>
+
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
+import Spinner from './Spinner.vue'
 
 export default {
   name: 'FormComponent',
@@ -33,21 +46,27 @@ export default {
       form: {
         title: ''
       },
+      loading: false
     }
   },
+  components: {
+    Spinner
+  },
+
   methods: {
     onSubmit (evt) {
       evt.preventDefault()
-      // alert(JSON.stringify(this.form));
+      this.loading = true
       axios.get('https://api.jikan.moe/search/anime/' + this.form.title)
         .then(response => {
           console.log(response.data)
           this.$emit('responseToParent', response.data.result.slice(0, 9))
+          this.loading = false
         })
         .catch(error => {
           console.log(error)
         })
-    },
+    }
   }
 }
 </script>

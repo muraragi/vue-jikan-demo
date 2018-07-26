@@ -6,8 +6,8 @@
 
 <script>
 export default {
-    name: "TimeWastedComponent",
-    props: ['timeWasted'],
+  name: 'TimeWastedComponent',
+  props: ['timeWasted']
 }
 </script>
 

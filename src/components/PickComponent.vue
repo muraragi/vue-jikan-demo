@@ -11,23 +11,23 @@
 import axios from 'axios'
 
 export default {
-    name: 'PickComponent',
-    props: ['title'],
-    methods: {
-        getTimeWasted(id){
-            axios.get('https://api.jikan.moe/anime/' + id)
-                .then(response =>{
-                    let episodes = response.data.episodes
-                    let avgDuration = parseInt(response.data.duration)
-                    let timeWasted = episodes * avgDuration
-                    
-                    this.$emit('passTimeWasted', timeWasted)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        }
+  name: 'PickComponent',
+  props: ['title'],
+  methods: {
+    getTimeWasted (id) {
+      axios.get('https://api.jikan.moe/anime/' + id)
+        .then(response => {
+          let episodes = response.data.episodes
+          let avgDuration = parseInt(response.data.duration)
+          let timeWasted = episodes * avgDuration
+
+          this.$emit('passTimeWasted', timeWasted)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
+  }
 }
 </script>
 

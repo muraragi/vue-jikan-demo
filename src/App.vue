@@ -1,31 +1,38 @@
 <template>
   <div id="app">
     <nav-component/>
-    
+
     <b-container>
       <b-img center rounded="circle" :src="require('./assets/logo-girl.jpg')" fluid alt="Sorry, mama..." />
     </b-container>
 
     <hr>
 
-    <b-container v-if="timeWasted">
-      <time-wasted-component :timeWasted="timeWasted"></time-wasted-component>
-      <div class="button-container">
-        <b-button variant="success" @click="reset">Check another title...</b-button>
-      </div>
-    </b-container>
+    <transition name="fade">
+      <b-container v-if="timeWasted">
+        <time-wasted-component :timeWasted="timeWasted"></time-wasted-component>
+        <div class="button-container">
+          <b-button variant="success" @click="reset">Check another title...</b-button>
+        </div>
+      </b-container>
+    </transition>
 
     <div v-if="!timeWasted">
-      <form-component @responseToParent="onResponseRecieved" v-if="!responseEmptyness"/>
+      <transition name="fade">
+        <div v-if="!responseEmptyness">
+          <form-component @responseToParent="onResponseRecieved"/>
+        </div>
+      </transition>
 
-      <b-container v-if="responseEmptyness">
-        <h1>Pick the correct one...</h1>
-        <b-row>
-          <pick-component v-for="title in titles" :key="title.mal_id" :title="title" @passTimeWasted="receiveTimeWasted"></pick-component>
-        </b-row>
-      </b-container>
+      <transition name="fade">
+        <b-container v-if="responseEmptyness">
+          <h1>Pick the correct one...</h1>
+          <b-row>
+            <pick-component v-for="title in titles" :key="title.mal_id" :title="title" @passTimeWasted="receiveTimeWasted"></pick-component>
+          </b-row>
+        </b-container>
+      </transition>
     </div>
-
   </div>
 </template>
 
@@ -33,15 +40,15 @@
 import FormComponent from './components/FormComponent.vue'
 import NavComponent from './components/NavComponent.vue'
 import PickComponent from './components/PickComponent.vue'
-import TimeWastedComponent from './components/TimeWastedComponent'
+import TimeWastedComponent from './components/TimeWastedComponent.vue'
 
 export default {
   name: 'app',
 
-  data() {
-    return{
+  data () {
+    return {
       titles: {},
-      timeWasted: 0,
+      timeWasted: 0
     }
   },
 
@@ -49,29 +56,29 @@ export default {
     FormComponent,
     NavComponent,
     PickComponent,
-    TimeWastedComponent,
+    TimeWastedComponent
   },
 
   methods: {
-    onResponseRecieved (response){
-      this.titles = response;
+    onResponseRecieved (response) {
+      this.titles = response
     },
 
-    receiveTimeWasted (timeWasted){
+    receiveTimeWasted (timeWasted) {
       console.log(timeWasted)
       this.timeWasted = timeWasted
     },
 
-    reset(){
+    reset () {
       this.titles = {}
       this.timeWasted = 0
     }
   },
 
   computed: {
-    responseEmptyness(){
+    responseEmptyness () {
       return Object.keys(this.titles).length
-    },
+    }
   }
 }
 </script>
@@ -93,4 +100,5 @@ export default {
     text-align: center;
     margin-top: 10px;
   }
+
 </style>

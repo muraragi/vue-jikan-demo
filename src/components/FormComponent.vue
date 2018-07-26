@@ -20,6 +20,7 @@
                         description="We'll never share your precious secrets with your parents.">
             <b-form-input id="title"
                           type="text"
+                          required
                           autocomplete="off"
                           v-model="form.title"
                           :state="!$v.form.title.$invalid"

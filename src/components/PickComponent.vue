@@ -17,11 +17,10 @@ export default {
     getTimeWasted (id) {
       axios.get('https://api.jikan.moe/anime/' + id)
         .then(response => {
-          let episodes = response.data.episodes
-          let avgDuration = parseInt(response.data.duration)
-          let timeWasted = episodes * avgDuration
+          console.log(response.data)
+          console.log(response.data.duration.replace(/\D+/g, ""))  
 
-          this.$emit('passTimeWasted', timeWasted)
+          this.$emit('passTimeWasted', response.data)
         })
         .catch(error => {
           console.log(error)

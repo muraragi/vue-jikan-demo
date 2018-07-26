@@ -26,10 +26,16 @@
 
       <transition name="fade">
         <b-container v-if="responseEmptyness">
-          <h2 class="pick-header">Pick the correct one...</h2>
-          <b-row v-for="titles in groupedTitles">
+          <div class="pick-header">
+            <h2>Pick the correct one...</h2>
+          </div>
+          <b-row v-for="(titles, index) in groupedTitles" :key="`titles-${index}`">
             <pick-component v-for="title in titles" :key="title.mal_id" :title="title" @passTimeWasted="receiveTimeWasted"></pick-component>
           </b-row>
+          <div class="pick-footer">
+            <hr>
+            <b-button variant="warning" @click="reset">Return to search</b-button>
+          </div>
         </b-container>
       </transition>
     </div>
@@ -121,6 +127,10 @@ export default {
   }
 
   .pick-header{
+    text-align: center;
+  }
+
+  .pick-footer{
     text-align: center;
   }
 

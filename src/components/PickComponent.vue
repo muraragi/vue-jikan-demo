@@ -45,5 +45,6 @@ export default {
 
     .choose-button{
         width: 90%;
+        overflow: hidden;
     }
 </style>

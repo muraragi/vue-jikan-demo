@@ -26,8 +26,8 @@
 
       <transition name="fade">
         <b-container v-if="responseEmptyness">
-          <h1>Pick the correct one...</h1>
-          <b-row>
+          <h2 class="pick-header">Pick the correct one...</h2>
+          <b-row v-for="titles in groupedTitles">
             <pick-component v-for="title in titles" :key="title.mal_id" :title="title" @passTimeWasted="receiveTimeWasted"></pick-component>
           </b-row>
         </b-container>
@@ -72,12 +72,31 @@ export default {
     reset () {
       this.titles = {}
       this.timeWasted = 0
-    }
+    },
+
+    chunkArray(myArray, chunk_size){
+      let index = 0;
+      let arrayLength = myArray.length;
+      let tempArray = [];
+      
+      for (index = 0; index < arrayLength; index += chunk_size) {
+          let myChunk = myArray.slice(index, index+chunk_size);
+          // Do something if you want with the group
+          tempArray.push(myChunk);
+      }
+
+    return tempArray;
+}
   },
 
   computed: {
     responseEmptyness () {
       return Object.keys(this.titles).length
+    },
+    groupedTitles() {
+      return this.chunkArray(this.titles, 3)
+      // returns a nested array: 
+      // [[article, article, article], [article, article, article], ...]
     }
   }
 }
@@ -99,6 +118,10 @@ export default {
   .button-container{
     text-align: center;
     margin-top: 10px;
+  }
+
+  .pick-header{
+    text-align: center;
   }
 
 </style>

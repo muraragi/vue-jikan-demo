@@ -1,5 +1,5 @@
 <template>
-    <b-col cols="4" class="one-card">
+    <b-col cols="12" lg="4" class="one-card">
         <b-img rounded="circle" width="120" thumbnail :src="title.image_url" alt="Thumbnail" class="title-picture"/>
         <b-button variant="danger" size="sm" class="choose-button" @click="getTimeWasted(title.mal_id)">
             {{ title.title }}

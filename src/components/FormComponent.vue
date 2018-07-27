@@ -31,7 +31,7 @@
            </b-form-invalid-feedback>  
           </b-form-group>
           <div class="buttons">
-            <b-button type="submit" variant="primary" class="left">Seek your destiny</b-button>
+            <b-button :disabled="$v.form.title.$invalid" type="submit" variant="primary" class="left">Seek your destiny</b-button>
           </div>
         </b-form>
       </div>

@@ -24,7 +24,7 @@
       </transition>
 
       <transition name="fade">
-        <b-container v-if="responseEmptyness">
+        <b-container v-if="responseEmptyness" class="pick-wrapper">
           <div class="pick-header">
             <h2>Pick the correct one...</h2>
           </div>
@@ -135,6 +135,12 @@ export default {
 
   .image-wrapper{
     margin-bottom: 20px
+  }
+
+  .pick-wrapper{
+    border: 1px solid rgba(0,0,0,0.22);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    padding: 20px;
   }
 
 </style>

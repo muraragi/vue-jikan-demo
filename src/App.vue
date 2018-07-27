@@ -2,11 +2,10 @@
   <div id="app">
     <nav-component/>
 
-    <b-container>
-      <b-img center rounded="circle" :src="require('./assets/logo-girl.jpg')" fluid alt="Sorry, mama..." />
+    <b-container class="image-wrapper">
+      <b-img center rounded="circle" :src="require('./assets/logo-girl.jpg')" fluid width="700px" alt="Sorry, mama..."/>
     </b-container>
 
-    <hr>
 
     <transition name="fade">
       <b-container v-if="timeWasted">
@@ -132,6 +131,10 @@ export default {
 
   .pick-footer{
     text-align: center;
+  }
+
+  .image-wrapper{
+    margin-bottom: 20px
   }
 
 </style>

@@ -3,7 +3,7 @@
     <nav-component/>
 
     <b-container class="image-wrapper">
-      <b-img center rounded="circle" :src="require('./assets/logo-girl.jpg')" fluid width="700px" alt="Sorry, mama..."/>
+      <b-img center rounded :src="require('./assets/logo-girl.jpg')" fluid width="700px" alt="Sorry, mama..."/>
     </b-container>
 
 
